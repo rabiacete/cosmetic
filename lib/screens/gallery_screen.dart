@@ -5,18 +5,18 @@ import 'package:image_picker/image_picker.dart';
 import 'package:cosmetic/model.dart';
 import 'package:cosmetic/screens/product_detail_screen.dart';
 
-class CameraScreen extends StatefulWidget {
+class GalleryScreen extends StatefulWidget {
   final Model model;
-  const CameraScreen({super.key, required this.model});
+  const GalleryScreen({super.key, required this.model});
 
   @override
-  State<CameraScreen> createState() => _CameraScreenState();
+  State<GalleryScreen> createState() => _GalleryScreenState();
 }
 
-class _CameraScreenState extends State<CameraScreen> {
-  Future<void> _captureImage(BuildContext context) async {
+class _GalleryScreenState extends State<GalleryScreen> {
+  Future<void> _pickImage(BuildContext context) async {
     final picker = ImagePicker();
-    final pickedFile = await picker.pickImage(source: ImageSource.camera);
+    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
 
     if (pickedFile != null) {
       try {
@@ -40,7 +40,7 @@ class _CameraScreenState extends State<CameraScreen> {
     } else {
       if (context.mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Resim çekilmedi. Lütfen tekrar deneyin.')),
+          SnackBar(content: Text('Resim seçilmedi. Lütfen tekrar deneyin.')),
         );
       }
     }
@@ -49,15 +49,15 @@ class _CameraScreenState extends State<CameraScreen> {
   @override
   void initState() {
     super.initState();
-    _captureImage(context);
+    _pickImage(context);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Kamera')),
+      appBar: AppBar(title: const Text('Galeri')),
       body: const Center(
-        child: Text('Lütfen kamerayı kullanarak bir resim çekin.'),
+        child: Text('Lütfen galeriden bir resim seçin.'),
       ),
     );
   }
