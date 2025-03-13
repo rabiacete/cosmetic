@@ -30,9 +30,9 @@ class ProductDetailScreen extends StatelessWidget {
 
   String _getProductDetails(String productName) {
     Map<String, String> productDetails = {
-      "Ürün A": "Cilt dostu bileşenler içerir.",
-      "Ürün B": "Paraben ve sülfat içermez.",
-      "Ürün C": "Organik sertifikalıdır.",
+      "ISANA VÜCUT LOSYONU": "Cilt dostu bileşenler içerir.",
+      "DOA NEMLENDİRİCİ KREM": "Paraben ve sülfat içermez.",
+      "OTACI GÜL SUYU": "Organik sertifikalıdır.",
     };
     return productDetails[productName] ?? "Bilgi bulunamadı.";
   }

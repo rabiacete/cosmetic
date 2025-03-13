@@ -6,7 +6,7 @@ import 'package:image/image.dart' as img;
 class Model {
   late Interpreter _interpreter;
   bool isModelLoaded = false;
-  final List<String> _productNames = ["Ürün A", "Ürün B", "Ürün C"];
+  final List<String> _productNames = ["ISANA VÜCUT LOSYONU", "DOA NEMLENDİRİCİ KREM", "OTACI GÜL SUYU"];
 
   Future<void> loadModel() async {
     try {
