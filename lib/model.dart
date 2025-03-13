@@ -6,7 +6,7 @@ import 'package:image/image.dart' as img;
 class Model {
   late Interpreter _interpreter;
   bool isModelLoaded = false;
-  final List<String> _productNames = ["ISANA VÜCUT LOSYONU", "DOA NEMLENDİRİCİ KREM", "OTACI GÜL SUYU"];
+  final List<String> _productNames = ["ISANA VÜCUT LOSYONU", "DOA GÜNEŞ KREMİ", "ARKO NEM", "CREAM CO YÜZ JELİ", "MARUDERM KİL MASKESİ"];
 
   Future<void> loadModel() async {
     try {
@@ -36,7 +36,7 @@ class Model {
     int height = 224;
 
     // Resmi yeniden boyutlandır
-    img.Image resizedImage = img.copyResize(image, width: width, height: height);
+    img.Image resizedImage = img.copyResize(image, width: width, height: height, interpolation: img.Interpolation.nearest);
 
     // Giriş tensörünü oluştur
     List<List<List<List<double>>>> input = List.generate(
@@ -76,7 +76,7 @@ class Model {
       int numClasses = _productNames.length;
 
       // Çıktıyı oluştur
-      var output = List.generate(1, (_) => List.filled(numClasses, 0.0));
+      var output = List.generate(1, (_) => List.filled(_productNames.length, 0.0));
 
       print("Processed Input: ${input[0][0][0]}"); // İlk pikselin RGB değerlerini kontrol et
       print("Running Model...");
@@ -85,10 +85,17 @@ class Model {
 
       print("Model Çıktısı: $output");
 
+      // Detaylı loglama
+      for (int i = 0; i < output[0].length; i++) {
+        print("Class $i: ${output[0][i]}");
+      }
+
       List<double> outputProbabilities = List<double>.from(output[0]);
       int predictedIndex = outputProbabilities.indexWhere(
         (e) => e == outputProbabilities.reduce((a, b) => a > b ? a : b)
       );
+
+      print("Predicted Index: $predictedIndex, Product Name: ${getProductName(predictedIndex)}");
 
       return getProductName(predictedIndex);
     } catch (e) {
